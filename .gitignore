@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Archivos de prueba generados automáticamente por aguirre_arias_galvis_hash.py
+archivo_1mb.txt
+archivo_5mb.bin
+archivo_10mb.txt
+archivo_1mb_mod.txt
+
+# Especificación instruccional
+Funcion de hash.md
