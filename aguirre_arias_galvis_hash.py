@@ -514,77 +514,9 @@ def main():
     print(f"{'Auditada/estandarizada':<35} {'No':>20} {'Sí (NIST)':>20}")
     print()
 
-    # --------------------------------------------------------
-    # ANÁLISIS CRÍTICO
-    # --------------------------------------------------------
-    print("=" * 60)
-    print("ANÁLISIS CRÍTICO vs SHA-256 (máximo 1 página)")
-    print("=" * 60)
-
-    analisis = """
-1. VULNERABILIDADES DE LA IMPLEMENTACIÓN PROPIA VS SHA-256
------------------------------------------------------------
-• Extensión de longitud (Length Extension Attack): Merkle-Damgård sin HMAC
-  permite que un atacante que conoce H(m) calcule H(m||extension) sin conocer m.
-  SHA-256 tiene el mismo problema, pero en producción se mitiga con HMAC-SHA256.
-  
-• Menos rondas (32 vs 64): SHA-256 usa 64 rondas de mezcla; esta implementación
-  solo usa 32. Menos rondas implica menor difusión, lo que puede facilitar
-  ataques diferenciales o de colisión.
-
-• Sin resistencia probada: SHA-256 ha sido analizado por criptógrafos durante
-  décadas; no se conocen ataques prácticos. Esta implementación no ha sido
-  sometida a criptoanálisis formal, por lo que pueden existir rutas de ataque
-  desconocidas.
-
-• Implementación en Python puro: susceptible a ataques de canal lateral
-  (timing attacks) ya que Python no garantiza tiempo constante de ejecución.
-
-2. ¿POR QUÉ ES PELIGROSO USAR HASHES PROPIOS EN PRODUCCIÓN?
-------------------------------------------------------------
-• Ausencia de revisión criptográfica: los algoritmos estándar (SHA-256, SHA-3)
-  han sido revisados por miles de expertos durante años. Una implementación propia
-  puede parecer segura sin serlo.
-  
-• Falsa sensación de seguridad: el desenvolvedor puede asumir que el hash es
-  seguro por producir resultados distintos, sin haber probado resistencia a
-  preimagen, segunda preimagen o colisiones.
-  
-• Cumplimiento normativo: regulaciones como FIPS 140-2, PCI-DSS y GDPR exigen
-  el uso de algoritmos aprobados. Un hash propio invalidaría auditorías de
-  seguridad y podría acarrear consecuencias legales.
-
-3. ESCENARIOS DONDE UN HASH PERSONALIZADO PODRÍA SER ACEPTABLE
---------------------------------------------------------------
-• Checksums no criptográficos: verificar integridad de archivos en sistemas
-  internos sin amenaza de adversarios (ej.: detección de corrupción accidental).
-  
-• Prototipos educativos: demostrar conceptos de hashing sin requerir seguridad real.
-  
-• Aplicaciones con restricciones de hardware extremas donde SHA-256 no cabe,
-  aceptando conscientemente el riesgo de seguridad reducida.
-
-4. ASPECTOS DE SHA-256 NO REPLICADOS Y SU IMPORTANCIA
-------------------------------------------------------
-• Solo 32 rondas vs 64: SHA-256 usa 64 rondas para garantizar máxima difusión
-  y confusión. Con 32 rondas existe margen para ataques diferenciales.
-  
-• Constantes verificadas: las constantes de SHA-256 son Nothing-Up-My-Sleeve
-  (NUMS), derivadas de raíces cuadradas de primos, eliminando backdoors ocultos.
-  Las constantes aquí usadas son similares pero no idénticas.
-  
-• Resistencia formal a colisiones: SHA-256 tiene proof of security bajo modelos
-  de oráculo aleatorio. Esta implementación carece de prueba formal.
-  
-• SIMD/AVX optimization: SHA-256 en hardware usa instrucciones especializadas
-  que lo hacen entre 10x-100x más rápido que Python puro.
-"""
-    print(analisis)
-
     print("=" * 60)
     print("EJECUCIÓN COMPLETADA EXITOSAMENTE")
     print("=" * 60)
-
 
 # ============================================================
 # PUNTO DE ENTRADA
