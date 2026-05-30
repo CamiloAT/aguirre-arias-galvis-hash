@@ -1,8 +1,8 @@
-# Custom Block Hash Function for Large Files
+# Block Hashing for Large Files
 
 A custom cryptographic hash function algorithm built from scratch in Python. It is designed to process large files (>1MB) deterministically in blocks, implementing chaining mechanisms, and outputting a unique fixed-length integrity value. 
 
-The main file is named `aguirre_arias_galvis_hash.py` because it is a concrete hash function that was developed by the authors **Diego Fernando Aguirre Tenjo**, **Camilo Andres Arias Tenjo**, and **Katlyn Jennelis Galvis Rodriguez**.
+The decision for the name `aguirre_arias_galvis_hash.py` was a simple creative process of joining the first surnames of the three authors who developed the idea for the encryption process: **Diego Fernando Aguirre Tenjo**, **Camilo Andres Arias Tenjo**, and **Katlyn Jennelis Galvis Rodriguez**.
 
 ---
 
